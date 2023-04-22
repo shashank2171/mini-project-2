@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-
+import Search from "./Search.js";
 // import { Link } from "react-router-dom";
-import SignUpForm from "./SignUpForm.js"; 
-import SignInForm from "./SignInForm.js"; 
+// import SignUpForm from "./SignUpForm.js"; 
+// import SignInForm from "./SignInForm.js"; 
 import Sign from "./Sign.js"; 
 
 import {
-  staggerText,
+  // staggerText,
   staggerReveal,
   fadeInUp,
   // handleHover,
@@ -73,54 +73,58 @@ const Hamburger = ({ state }) => {
   }, [state]);
 
   return (
+    
     <div ref={el => (menuLayer = el)} className='hamburger-menu'>
       <div
         ref={el => (reveal1 = el)}
-        className='menu-secondary-background-color'></div>
+        className='menu-secondary-background-color'>
+        
+      </div>
       <div ref={el => (reveal2 = el)} className='menu-layer'>
         <div
           ref={el => (cityBackground = el)}
           className='menu-city-background'></div>
         <div className='container'>
+          
           <div className='wrapper'>
             <div className='menu-links'>
               <nav>
                     
                  
-                   <Sign/>
+                <Sign/>
                    
               </nav>
 
 
-              <div>
+            <div>
       
-    </div>
+          </div>
 
 
-              <div ref={el => (info = el)} className='info'>
-                <h3>How?</h3>
+            <div ref={el => (info = el)} className='info'>
+              <h3>How?</h3>
                 <p>
                   please create an account to browse for books of your choice. Crawler will get you your desired books.
                 </p>
               </div>
-              <div className='locations'>
-                Genre:
-                {/* Returning the list of book types */}
-                {cities.map(el => (
-                  <span
-                    key={el.name}
-                    onMouseEnter={() => handleCity(el.image, cityBackground)}
-                    onMouseOut={() => handleCityReturn(cityBackground)}>
-                    {el.name}
-                  </span>
-                ))}
-              </div>
+            <div className='locations'>
+              Genre:
+              {/* Returning the list of book types */}
+              {cities.map(el => (
+                <span
+                  key={el.name}
+                  onMouseEnter={() => handleCity(el.image, cityBackground)}
+                  onMouseOut={() => handleCityReturn(cityBackground)}>
+                  {el.name}
+                </span>
+              ))}
             </div>
           </div>
         </div>
+        
       </div>
     </div>
-  );
-};
+  </div>
+);};
 
 export default Hamburger;

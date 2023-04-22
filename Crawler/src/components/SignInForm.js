@@ -17,10 +17,11 @@ function SignInForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
-    
-    // console.log(formValues);
-    axios(configuration)
+    const f = validate(formValues);
+    setFormErrors(f);
+
+    if(Object.keys(f).length === 0){
+      axios(configuration)
       .then((result) => {
         alert("Signed in succesfully")
         console.log(result);
@@ -34,19 +35,25 @@ function SignInForm() {
 
       })
       .catch((error) => {
+        
         error = new Error();
         console.log(error);
         alert("wrong credentials")
       });
+    }
+    
+    // console.log(formValues);
+    
     // setIsSubmit(true);
   };
 
   useEffect(() => {
-    console.log(formErrors);
+    //console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
+      
     }
-  }, [formErrors]);
+  });
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -88,23 +95,23 @@ function SignInForm() {
         <h1>Sign In</h1>
         <div className="ui divider"></div>
         <div className="ui form">
-          <div className="field">
-            {/* <label>Username</label>
+          {/* <div className="field">
+            <label>Username</label>
             <input
               type="text"
               name="username"
               placeholder="Username"
               value={formValues.username}
               onChange={handleChange}
-            /> */}
+            />
           </div>
-          {/* <p>{formErrors.username}</p> */}
+          <p>{formErrors.username}</p> */}
           <div className="field">
             <label>Email</label>
             <input
               type="text"
               name="email"
-              placeholder="Email"
+              placeholder="Input email"
               value={formValues.email}
               onChange={handleChange}
               className = "fieldBox"
@@ -116,7 +123,7 @@ function SignInForm() {
             <input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="Input password"
               value={formValues.password}
               onChange={handleChange}
               className = "fieldBox"

@@ -14,29 +14,41 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
-    
-    // console.log(formValues);
-    axios(configuration)
+    const f = validate(formValues)
+    setFormErrors(f);
+
+    if(Object.keys(f).length === 0){
+      axios(configuration)
       .then((result) => {
         alert("Signed up succesfully")
         console.log(result);
         setIsSubmit(true);
       })
       .catch((error) => {
-        error = new Error();
-        console.log(error);
-        alert("Duplicate account!")
+        let err = error.response.data.error.keyPattern;
+        let m ="";
+        if(err.hasOwnProperty("email")){
+          m = "Account already exists, please login";
+        }
+        else if(err.hasOwnProperty('password')){
+          m = "invalid password";
+        }
+        else{
+          m = "Server error";
+        }
+        alert(m);
       });
+    }
+    
     // setIsSubmit(true);
   };
 
   useEffect(() => {
-    console.log(formErrors);
+    //console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
     }
-  }, [formErrors]);
+  });
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -80,7 +92,7 @@ function SignUpForm() {
             <input
               type="text"
               name="name"
-              // placeholder="Username"
+              placeholder="Input name"
               value={formValues.name}
               onChange={handleChange}
               className="fieldBox"
@@ -92,7 +104,7 @@ function SignUpForm() {
             <input
               type="text"
               name="email"
-              // placeholder="Email"
+              placeholder="Input email"
               value={formValues.email}
               onChange={handleChange}
               className="fieldBox"
@@ -104,7 +116,7 @@ function SignUpForm() {
             <input
               type="password"
               name="password"
-              // placeholder="Password"
+              placeholder="Input Password"
               value={formValues.password}
               onChange={handleChange}
               className="fieldBox"
