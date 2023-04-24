@@ -100,7 +100,7 @@ header {
     .menu-layer {
       position: relative;
       backdrop-filter: blur(5px);
-      background: rgba(11, 1, 0, 0.775);
+      background: rgba(11, 1, 0, 0.5);
       height: 100%;
       overflow: hidden;
       .menu-city-background {
@@ -196,6 +196,7 @@ header {
 // new css for signup signin form 
 
 .containerSign{
+  cursor: default;
   height : 400px;
   width : 500px;
   backdrop-filter: blur(50px);
@@ -250,6 +251,13 @@ header {
   border-radius : 2px;
   color :rgb(255, 255, 255);
   margin :0px 0px 10px 10px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    background-color: white;
+      
+  }
 }
 
 .ui button{
@@ -262,13 +270,182 @@ header {
   border: 2px solid rgb(255, 255, 255);
   border-radius : 2px;
   color :rgb(255, 255, 255);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    color: black;
+    background-color: white;
+      
+  }
 }
 
 .confirmBox{
   display : flex;
   flex-direction: row;
   color :rgb(255, 255, 255);
+  padding-top: 4%;
+  button{
+    backdrop-filter: blur(5px);
+  }
+  
 }
+
+// search bar
+
+.searchInputs {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search input {
+  background-color: rgba(0, 0, 0, 0.35);
+  border: 2px solid black;
+  backdrop-filter: blur(5px);
+  border-radius: 7px;
+  font-size: 18px;
+  padding: 15px;
+  height: 10px;
+  width: 300px;
+  color : antiquewhite;
+}
+
+.searchIcon {
+  height: 40px;
+  width: 50px;
+  display: grid;
+  place-items: center;
+}
+
+input:focus {
+  outline: none;
+}
+.searchIcon svg {
+  font-size: 35px;
+}
+
+
+#clearBtn {
+  cursor: pointer;
+}
+
+
+
+// cards
+.cards{
+  display: flex;
+  height : 75vh;
+  width : 90vw;
+  margin : 15px;
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(5px);
+  border : 2px solid black;
+  border-radius: 15px;
+}
+
+.list{
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  height: 100%;
+  width: 50%;
+  border-right : 2px solid black;
+  overflow: scroll;
+
+  li{
+    cursor: pointer;
+    padding-top: 2.22%;
+    padding-bottom: 2.22%;
+    padding-left: 4%;
+    padding-right: 4%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: antiquewhite;
+    //border-bottom: 2px solid black;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      color: #000000;
+      background-color: antiquewhite;
+      border-radius: 15px;
+    }
+  }
+}
+
+
+.infor{
+  justify-content: right;
+  height: 100%;
+  width: 50%;
+  border-left : 2px solid black;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: 4fr 1fr;
+  // grid-column-gap: 20px;
+  // grid-row-gap: 20px; 
+}
+
+.image{
+  padding: 4%;
+  padding-left: 6%;
+  grid-column: 1;
+  grid-row: 1;
+  
+  img{
+    height: 360px;
+    width: 240px;
+    border-radius: 15px;
+    border: 2px solid black;
+  }
+  
+}
+
+.descr{
+  font-family: "Times New Roman", Times, serif;
+  font-stretch: condensed;
+  padding: 4%;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+
+  overflow: scroll;
+  color: antiquewhite;
+  // border-bottom: 2px solid #000000;
+  border-left: 2px solid black;
+}
+
+.links{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row: 2;
+  button{
+      margin: 2%;
+      // width : 75px;
+      background:transparent;
+      border : none;
+      font-size: 1.1rem;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      border: 2px solid antiquewhite;
+      border-radius : 2px;
+      color :antiquewhite;
+      transition: 0.3s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        color: black;
+        background-color: aquamarine;
+          
+    }
+  }
+}
+
+// .title{
+//   grid-column: 2; 
+//   border-left: 2px solid black;
+// }
 
 @keyframes backgroundEffect {
   0% {

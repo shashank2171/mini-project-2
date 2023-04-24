@@ -17,10 +17,6 @@ export default function Sign() {
   
     return (
       <div>
-      <div className="confirmBox">
-        <div className="confirm">already registered?</div>
-        <button onClick={handleClick} className="click">Log In</button>
-        </div>
         {/* 👇️ show elements on click */}
         {isShown}
   
@@ -30,6 +26,11 @@ export default function Sign() {
   
         {/* 👇️ show component on click */}
         {isShownSignUp && <SignUpForm />}
+
+        <div className="confirmBox">
+          <div className="confirm">already registered?</div>
+          <button onClick={handleClick} className="click">Log In</button>
+        </div>
       </div>
     );
   }

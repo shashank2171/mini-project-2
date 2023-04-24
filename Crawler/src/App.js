@@ -1,8 +1,13 @@
+
+
 import React from "react";
 import "./App.scss";
-// import Form from "./components/form.js";
+import SearchBar from "./components/SearchBar.js";
 import Header from "./components/Header";
+// import Dashboard from "./components/Dashboard.js";
+import Cards from "./components/Cards.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 
 
 
@@ -10,6 +15,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
 
+  
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
@@ -19,6 +25,9 @@ function App() {
   }, []);
 
   console.log(data);
+
+
+
 
   return (
     <Router>
@@ -55,31 +64,10 @@ function History() {
 
 function Home() {
   return (
-    <div className="container">
-      <div className="wrapper">
-        <h5>
-          The <b>HAMBRG</b>, is a creative, engineer driven, global agency
-          working on advancing the software, advertising and design communities
-          to new heights.
-        </h5>
-      </div>
+    <div className="search">
+    <SearchBar/>
+    <Cards/>
     </div>
   );
 }
 export default App;
-
-
-// <form>
-//   {/* Labels and inputs for form data */}
-//   <label className="label">Name</label>
-//   <input type="text" />
-//   <label className="label">Email</label>
-//   <input  type="email" />
-
-//   <label className="label">Password</label>
-//   <input type="password" />
-
-//   <button type="submit">
-//     Submit
-//   </button>
-// </form>

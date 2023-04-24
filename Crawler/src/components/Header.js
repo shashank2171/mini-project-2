@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
 import Hamburger from "./Hamburger";
-import Search from "./Search";
+
 const Header = ({ history }) => {
   // State of our Menu
   const [state, setState] = useState({
@@ -51,13 +51,12 @@ const Header = ({ history }) => {
   };
 
   return (
-  
     <header>
       <div className="container">
         <div className="wrapper">
           <div className="inner-header">
             <div className="logo">
-              <Link to="/">B-RWALER.</Link>
+              <Link to="/">CRAWLER.</Link>
             </div>
             <div className="menu">
               <button disabled={disabled} onClick={handleMenu}>

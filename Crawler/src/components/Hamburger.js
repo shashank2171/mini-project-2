@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import Search from "./Search.js";
+
 // import { Link } from "react-router-dom";
 // import SignUpForm from "./SignUpForm.js"; 
 // import SignInForm from "./SignInForm.js"; 
