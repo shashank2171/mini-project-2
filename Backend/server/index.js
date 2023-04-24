@@ -1,6 +1,6 @@
 const express = require("express");
 const dbConnect = require("./DBConnect");
-
+const libgen = require('libgen');
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -13,6 +13,7 @@ const { request } = require("http");
 const { response } = require("express");
 app.use(express.json())
 
+// const bookcovers = require('bookcovers');
 
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
@@ -131,5 +132,43 @@ app.get("/free-endpoint", (request, response) => {
 app.get("/auth-endpoint", auth, (request, response) => {
     response.json({ message: "You are authorized to access me" });
 });
+
+
+
+// libgen api
+
+app.post('/search',async (req, res)=>{
+    const urlString = await libgen.mirror();
+    console.log(urlString);
+    const options = {
+        mirror: urlString,
+        query: req.body.query,
+        count: 10,
+        sort_by: 'year',
+        reverse: true
+    }
+    try {
+        const data = await libgen.search(options);
+        res.json(data);
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
+// app.post('/cover', async (req,res)=>{
+//     console.log(req.body.s);
+//     bookcovers
+//     .withIsbn("9781476674971")
+//     .then(results => {
+//         res.json(results)
+//     })
+//     .catch((err)=>{
+//         console.log(err);
+//     })
+// })
+
+
+
   
 
