@@ -67,6 +67,7 @@ function Home() {
     <div className="search">
     <SearchBar/>
     <Cards/>
+    
     </div>
   );
 }
