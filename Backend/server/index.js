@@ -156,17 +156,6 @@ app.post('/search',async (req, res)=>{
 
 })
 
-// app.post('/cover', async (req,res)=>{
-//     console.log(req.body.s);
-//     bookcovers
-//     .withIsbn("9781476674971")
-//     .then(results => {
-//         res.json(results)
-//     })
-//     .catch((err)=>{
-//         console.log(err);
-//     })
-// })
 
 
 
