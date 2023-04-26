@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 
 // import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import Sign from "./Sign.js";
 import {
   // staggerText,
   staggerReveal,
-  fadeInUp,
+  // fadeInUp,
   // handleHover,
   // handleHoverExit,
   handleCityReturn,
@@ -22,6 +22,8 @@ import Fiction from "../images/austin.jpg";
 import newyork from "../images/newyork.jpg";
 import sanfrancisco from "../images/sanfrancisco.png";
 import beijing from "../images/beijing.jpg";
+import { cookies } from "../App.js";
+import Dashboard from "./Dashboard.js";
 
 const cities = [
   { name: "Horror", image: Horror },
@@ -36,6 +38,9 @@ const cities = [
 
 
 const Hamburger = ({ state }) => {
+
+  const [logIn, setLogin] = useState(true);
+
   // Create varibles of our dom nodes
   let menuLayer = useRef(null);
   let reveal1 = useRef(null);
@@ -44,7 +49,7 @@ const Hamburger = ({ state }) => {
   // let line1 = useRef(null);
   // let line2 = useRef(null);
   // let line3 = useRef(null);
-  let info = useRef(null);
+  // let info = useRef(null);
 
   useEffect(() => {
     // If the menu is open and we click the menu button to close it.
@@ -67,10 +72,25 @@ const Hamburger = ({ state }) => {
         height: "100%"
       });
       staggerReveal(reveal1, reveal2);
-      fadeInUp(info);
+      // fadeInUp(info);
       //staggerText(line1, line2, line3);
     }
   }, [state]);
+  
+  
+
+  cookies.addChangeListener(()=>{
+    if(cookies.get('TOKEN')!==""){
+      setLogin(false);
+      document.getElementById('user').innerHTML='Welcome '+cookies.get("NAME");
+      document.getElementById('started').setAttribute('style','visibility: hidden');
+    }
+    else{
+      setLogin(true);
+      document.getElementById('started').setAttribute('style','visibility: visible');
+    }
+  })
+
 
   return (
     
@@ -84,11 +104,13 @@ const Hamburger = ({ state }) => {
         <div
           ref={el => (cityBackground = el)}
           className='menu-city-background'></div>
-        <div className='container'>
-          
-          <div className='wrapper'>
-            <div className='menu-links'>
-              <nav>
+         <div className='container'>
+         <div className='wrapper'>
+
+            
+
+         { logIn && <div className='menu-links'>
+            <nav>
                     
                  
                 <Sign/>
@@ -96,18 +118,17 @@ const Hamburger = ({ state }) => {
               </nav>
 
 
-            <div>
-      
-          </div>
+            
 
-
-            <div ref={el => (info = el)} className='info'>
+              <div  className='info'>
               <h3>How?</h3>
                 <p>
-                  please create an account to browse for books of your choice. Crawler will get you your desired books.
+                  Please create an account to enable history and wishlist. B-RAWLER. will get you your desired books.
                 </p>
               </div>
-            <div className='locations'>
+              
+
+            <div id="loc" className='locations'>
               Genre:
               {/* Returning the list of book types */}
               {cities.map(el => (
@@ -119,10 +140,14 @@ const Hamburger = ({ state }) => {
                 </span>
               ))}
             </div>
-          </div>
-        </div>
-        
-      </div>
+            
+          </div>}
+          {!logIn && <Dashboard/>}
+        </div> 
+          
+      </div> 
+                
+
     </div>
   </div>
 );};

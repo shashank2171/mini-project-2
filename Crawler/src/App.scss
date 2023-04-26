@@ -8,7 +8,7 @@ html,
 body {
   background-size:cover;
   background-position: 50%;
-  background-image: url("https://images.unsplash.com/photo-1478641300939-0ec5188d3802?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80");
+  background-image: url("https://images.hdqwalls.com/download/apple-abstract-dark-red-4k-3m-2880x1800.jpg");
   padding: 0;
   margin: 0;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -38,7 +38,7 @@ body {
       p {
         font-size: 0.75rem;
         letter-spacing: 0.3rem;
-        color : white;
+        color : antiquewhite;
         text-transform: uppercase;
         font-weight: 500;
       }
@@ -173,14 +173,14 @@ header {
           //   }
           // }
           .info {
-            color: #fff;
+            color:antiquewhite;
             width: 300px;
             h3 {
               font-size: 1.2rem;
               margin: 8px auto;
             }
             p {
-              color : white;
+              color : antiquewhite;
               margin: 0 auto;
               font-size: 0.8rem;
             }
@@ -189,7 +189,7 @@ header {
         .locations {
           position: absolute;
           bottom: -80px;
-          color: #fff;
+          color: antiquewhite;
           margin-top: 16px;
           font-size: 0.8rem;
           font-weight: 600;
@@ -202,7 +202,7 @@ header {
             margin: 0 32px;
             transition: 0.3s ease-in-out;
             &:hover {
-              color: #fff;
+              color: antiquewhite;
               background: $black;
               padding: 8px 24px;
               border-radius: 4px;
@@ -228,7 +228,7 @@ header {
   display : flex;
   justify-content: center;
   align-items: center;
-  color :rgb(255, 255, 255)
+  color :antiquewhite;
 }
 
 
@@ -243,7 +243,7 @@ header {
 
 .field{
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color :#ffffff;
+  color :antiquewhite;
   display : flex;
   flex-direction: column;
   font-size: 20px;
@@ -262,22 +262,22 @@ header {
 }
 
 .click{
-  width : 75px;
+  width : 85px;
   background:transparent;
   border : none;
   font-size: 1.1rem;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  border: 2px solid rgb(255, 255, 255);
+  border: 2px solid antiquewhite;
   border-radius : 2px;
-  color :rgb(255, 255, 255);
+  color :antiquewhite;
   margin :0px 0px 10px 10px;
   transition: 0.3s ease-in-out;
   &:hover {
     cursor: pointer;
     color: black;
-    background-color: white;
-      
+    background-color: antiquewhite;
+      border-radius: 5px;
   }
 }
 
@@ -288,14 +288,15 @@ header {
   font-size: 1.1rem;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  border: 2px solid rgb(255, 255, 255);
+  border: 2px solid antiquewhite;
   border-radius : 2px;
-  color :rgb(255, 255, 255);
+  color :antiquewhite;
   transition: 0.3s ease-in-out;
   &:hover {
     cursor: pointer;
     color: black;
-    background-color: white;
+    background-color: antiquewhite;
+    border-radius: 5px;
       
   }
 }
@@ -303,12 +304,17 @@ header {
 .confirmBox{
   display : flex;
   flex-direction: row;
-  color :rgb(255, 255, 255);
+  color :antiquewhite;
   padding-top: 4%;
   button{
     backdrop-filter: blur(5px);
   }
   
+}
+
+.errors{
+  margin-top: 30px;
+  font-size: 14px;
 }
 
 // search bar
@@ -502,6 +508,72 @@ input:focus {
   animation: spin 2s linear infinite;
 }
 
+#started{
+  position: absolute;
+  float: left;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: large;
+  font-weight: 500;
+  color: antiquewhite;
+  button{
+    margin-top: 5%;
+    width : 20%;
+    background:transparent;
+    border : none;
+    font-size: 1.1rem;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    border: 2px solid antiquewhite;
+    border-radius : 2px;
+    color :antiquewhite;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      color: black;
+      background-color: antiquewhite;
+      border-radius: 5px;
+    }
+  }
+  
+}
+
+#dash{
+  position: relative;
+  top: 70px;
+  button{
+   
+    width : 10%;
+    background:transparent;
+    border : none;
+    font-size: 1.1rem;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    border: 2px solid antiquewhite;
+    border-radius : 2px;
+    color :antiquewhite;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      color: black;
+      background-color: antiquewhite;
+      border-radius: 5px;
+    }
+  }
+}
+
+#head{
+  padding-left: 10%;
+  padding-right: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+  color: antiquewhite;
+}
 
 
 @keyframes backgroundEffect {

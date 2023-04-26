@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import "./App.css";
 import axios from "axios";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
+import { cookies } from "../App";
 
 function SignInForm() {
   const initialValues = { email: "", password: "" };
@@ -23,15 +22,20 @@ function SignInForm() {
     if(Object.keys(f).length === 0){
       axios(configuration)
       .then((result) => {
-        alert("Signed in succesfully")
+        // alert("Signed in succesfully")
         console.log(result);
         setIsSubmit(true);
-
+        
         cookies.set("TOKEN", result.data.token, {
           path: "/",
         });
 
-        alert('Signed in as '+result.data.name);
+        cookies.set("NAME", result.data.name,{
+          path:"/",
+        })
+
+        // alert('Signed in as '+result.data.name);
+        console.log(cookies.get("TOKEN"));
 
       })
       .catch((error) => {
@@ -117,7 +121,7 @@ function SignInForm() {
               className = "fieldBox"
             />
           </div>
-          <p>{formErrors.email}</p>
+          <p className="errors">{formErrors.email}</p>
           <div className="field">
             <label>Password</label>
             <input
@@ -129,7 +133,7 @@ function SignInForm() {
               className = "fieldBox"
             />
           </div>
-          <p>{formErrors.password}</p>
+          <p className="errors">{formErrors.password}</p>
           <button className="ui button">Submit</button>
         </div>
       </form>

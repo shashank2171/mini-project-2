@@ -2,6 +2,8 @@ import React,{useState} from 'react';
 import SignInForm from "./SignInForm.js";
 import SignUpForm from "./SignUpForm.js";
 
+
+
 export default function Sign() {
     const [isShown, setIsShown] = useState(false);
     const [isShownSignUp, setIsShownSignUp] = useState(true);
@@ -17,8 +19,8 @@ export default function Sign() {
   
     return (
       <div>
-        {/* 👇️ show elements on click */}
-        {isShown}
+        {/* 👇️ show elements on click
+        {isShown} */}
   
         {/* 👇️ show component on click */}
         {isShown && <SignInForm />}
@@ -27,10 +29,18 @@ export default function Sign() {
         {/* 👇️ show component on click */}
         {isShownSignUp && <SignUpForm />}
 
-        <div className="confirmBox">
-          <div className="confirm">already registered?</div>
-          <button onClick={handleClick} className="click">Log In</button>
-        </div>
+        {isShown && <><div className="confirmBox">
+          <div className="confirm">Want to register?</div>
+          <button onClick={handleClick} className="click">Sign Up</button>
+          </div></>}
+        
+        {isShownSignUp && <>
+          <div className="confirmBox">
+          <div className="confirm">Already registered?</div>
+          <button onClick={handleClick} className="click">Log in</button>
+        </div></>}
+        
+      
       </div>
     );
   }

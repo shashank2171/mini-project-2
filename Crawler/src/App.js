@@ -7,7 +7,8 @@ import Header from "./components/Header";
 // import Dashboard from "./components/Dashboard.js";
 import Cards from "./components/Cards.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import Cookies from "universal-cookie";
+export const cookies = new Cookies();
 
 
 

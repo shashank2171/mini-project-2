@@ -50,16 +50,18 @@ const Header = ({ history }) => {
     }, 1200);
   };
 
+  
+  
   return (
     <header>
       <div className="container">
         <div className="wrapper">
           <div className="inner-header">
             <div className="logo">
-              <Link to="/">CRAWLER.</Link>
+              <Link to="/">B-RAWLER.</Link>
             </div>
             <div className="menu">
-              <button disabled={disabled} onClick={handleMenu}>
+              <button id='menu' disabled={disabled} onClick={handleMenu}>
                 {state.menuName}
               </button>
             </div>

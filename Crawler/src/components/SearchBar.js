@@ -33,6 +33,7 @@ function removeTags(str) {
 // }
 
 
+
 function SearchBar() {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -53,9 +54,14 @@ function SearchBar() {
       if (event.key === 'Enter') {
         event.preventDefault();
         // call submit function here
-        document.getElementById('loader').setAttribute('style','visibility: visible;');
-        document.getElementById('list').setAttribute('style','visibility: visible;');
-        search();
+        
+        if(wordEntered!==''){
+          document.getElementById('loader').setAttribute('style','visibility: visible;');
+          document.getElementById('list').setAttribute('style','visibility: visible;');
+          document.getElementById('started').setAttribute('style','visibility: hidden;');
+          search();
+        }
+        
       }
     };
 

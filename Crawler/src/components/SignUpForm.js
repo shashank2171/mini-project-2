@@ -53,7 +53,7 @@ function SignUpForm() {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.name) {
-      errors.name = "name is required!";
+      errors.name = "Name is required!";
     }
     if (!values.email) {
       errors.email = "Email is required!";
@@ -61,7 +61,7 @@ function SignUpForm() {
       errors.email = "This is not a valid email format!";
     }
     if (!values.password) {
-      errors.password = "Password is required";
+      errors.password = "Password is required!";
     } else if (values.password.length < 4) {
       errors.password = "Password must be more than 4 characters";
     }
@@ -98,7 +98,7 @@ function SignUpForm() {
               className="fieldBox"
             />
           </div>
-          <p>{formErrors.name}</p>
+          <p className="errors">{formErrors.name}</p>
           <div className="field">
             <label>Email</label>
             <input
@@ -110,7 +110,7 @@ function SignUpForm() {
               className="fieldBox"
             />
           </div>
-          <p>{formErrors.email}</p>
+          <p className="errors">{formErrors.email}</p>
           <div className="field">
             <label>Password</label>
             <input
@@ -122,7 +122,7 @@ function SignUpForm() {
               className="fieldBox"
             />
           </div>
-          <p>{formErrors.password}</p>
+          <p className="errors">{formErrors.password}</p>
           <button className="ui button">Submit</button>
         </div>
       </form>

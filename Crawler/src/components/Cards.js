@@ -1,10 +1,12 @@
 import React from "react";
 import { Loading } from "./Loading";
+import { Started } from "./Started";
 
 
 export default function Cards() {
   return (
-    <div className="cards"> 
+    <div className="cards">
+      <Started/>
       <Loading/>
       <div id='list' className="list">
       </div>
@@ -17,8 +19,6 @@ export default function Cards() {
             <div id='descId'></div>
           </div>
           <div id="lin" className="links">
-            {/* <button id="do_n"className="download">Download</button>
-            <button id="wish" className="wishlist">Wishlist</button> */}
           </div>
       </div>
     </div>
