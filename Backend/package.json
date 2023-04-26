@@ -1,7 +1,7 @@
 {
-  "name": "crawler-new-main",
+  "name": "b-rwaler_server",
   "version": "1.0.0",
-  "description": "Feel free to use it in your projects or just learn",
+  "description": "The server",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js"
