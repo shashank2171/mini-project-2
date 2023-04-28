@@ -32,18 +32,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 // Curb Cores Error by adding a header here
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     res.setHeader(
-//       "Access-Control-Allow-Headers",
-//       "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-//     );
-//     res.setHeader(
-//       "Access-Control-Allow-Methods",
-//       "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-//     );
-//     next();
-// });
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    );
+    next();
+});
 
 
 
@@ -147,7 +147,7 @@ app.post('/search',async (req, res)=>{
     const options = {
         mirror: urlString,
         query: req.body.query,
-        count: 10,
+        count: 20,
         sort_by: 'year',
         reverse: true
     }
@@ -161,16 +161,26 @@ app.post('/search',async (req, res)=>{
 })
 
 
-app.post('/add',async (req, res)=>{
-    const m = req.body.k;
-    const em = req.body.email;
-    if(req.body.meth==="history")
-        await model.updateOne({email:em}, {$push:{history:m}});
-    else if(req.body.meth==='wishlist')
-        await model.updateOne({email:em}, {$push:{wishlist:m}});
-    
 
+app.post('/add',async (req, res)=>{
+    
+    const em = req.body.email;
+    if(req.body.meth==="history"){
+        const m = req.body.k;
+        await model.updateOne({email:em}, {$push:{history:m}});
+    }
+    else if(req.body.meth==='wishlist'){
+        const m = req.body.k;
+        await model.updateOne({email:em}, {$push:{wishlist:m}}); 
+    }
+  
+    else if(req.body.meth==='read'){
+        // console.log(em);
+        const data = await model.find({email:req.body.email});
+        res.json(data);
+    }
 })
 
-  
+
+
 

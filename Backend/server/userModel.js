@@ -40,7 +40,7 @@ const UserSchema = new mongoose.Schema({
         identifier:{
             type:String
         },
-        imgurl:{
+        coverurl:{
             type:String
         },
         filesize:{
@@ -77,7 +77,7 @@ const UserSchema = new mongoose.Schema({
         identifier:{
             type:String
         },
-        imgurl:{
+        coverurl:{
             type:String
         },
         filesize:{
