@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
-
+import { cookies } from "../App";
 
 
 
@@ -47,7 +47,6 @@ function SearchBar() {
   
   useEffect(() => {
     
-    
     const keyDownHandler = event => {
       //console.log('User pressed: ', event.key);
 
@@ -79,9 +78,23 @@ function SearchBar() {
       getInfo();
     }
     else if(curr==="do_n"){
-  
-      window.open('https://cloudflare-ipfs.com/ipfs/'+res.data[Number(last[3])].ipfs_cid.toLowerCase(), '_blank');
 
+      if(cookies.get("TOKEN")!==""){
+        record('history');
+      }
+
+      window.open('https://cloudflare-ipfs.com/ipfs/'+res.data[Number(last[3])].ipfs_cid.toLowerCase(), '_blank');
+    
+
+    }
+    else if(curr==="wish"){
+      if(cookies.get("TOKEN")===""){
+        document.getElementById('war').innerHTML="Please login to use this feature.";
+      }
+      else{
+        document.getElementById('war').innerHTML="Item added to wishlist.";
+        record('wishlist');
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[curr])
@@ -90,11 +103,11 @@ function SearchBar() {
     let k = res.data[Number(curr[3])]
     console.log(k);
 
-    let s = k.identifier;
-    let i =0;
-    while(s[i++]<s.length && s[i]!==',');
+    // let s = k.identifier;
+    // let i =0;
+    // while(s[i++]<s.length && s[i]!==',');
     
-    s = s.substring(0,i);
+    // s = s.substring(0,i);
 
     let img = document.getElementById('bookImg');
     img.src="";
@@ -113,18 +126,41 @@ function SearchBar() {
 
     let wish = document.createElement('button');
     wish.setAttribute('id','wish');
-    wish.setAttribute('class','wishlist');
-    wish.innerHTML='Wishlist it';
+    let war = document.createElement('div');
+    war.setAttribute('id','war');
+    war.innerHTML="";
 
     lin.appendChild(don);
     lin.appendChild(wish);
-
+    lin.append(war);
     document.getElementById('do_n').innerHTML="Download";
     document.getElementById('wish').innerHTML="Wishlist";
-
+    
     document.getElementById('infor').setAttribute('style','visibility: visible;');
    
   
+  }
+
+  async function record(meth){
+    let email = cookies.get('EMAIL');
+    let k = res.data[Number(last[3])];
+    const configuration = {
+      method: "post",
+      url: "http://localhost:3001/add",
+      data: {
+        email,
+        k,
+        meth,
+      }
+    };
+
+    axios(configuration)
+    .then((result)=>{
+      console.log(result);
+    })
+    .catch((e)=>{
+      console.log(e);
+    })
   }
 
   const search = async() => {

@@ -8,9 +8,20 @@ import Header from "./components/Header";
 import Cards from "./components/Cards.js";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Cookies from "universal-cookie";
+
 export const cookies = new Cookies();
 
+cookies.set("TOKEN", "", {
+  path: "/",
+});
 
+cookies.set("NAME", "",{
+  path:"/",
+})
+
+cookies.set("EMAIL", "",{
+  path:'/',
+})
 
 
 
@@ -20,9 +31,13 @@ function App() {
   const [data, setData] = React.useState(null);
 
   React.useEffect(() => {
+    
+
     fetch("/api")
       .then((res) => res.json())
       .then((data) => setData(data.message));
+
+    
   }, []);
 
   console.log(data);
@@ -41,7 +56,6 @@ function App() {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/SignUp" component={SignUp} />
                 <Route exact path="/SignIn" component={SignIn} />
-                <Route exact path="/History" component={History} />
               </Switch>
             </div>
           </div>
@@ -58,10 +72,7 @@ function SignUp (){
 function SignIn() {
   return <p>Solutions that help you.</p>;
 }
-// view history and wishlist
-function History() {
-  return <p>Feel free to reach us.</p>;
-}
+
 
 function Home() {
   return (

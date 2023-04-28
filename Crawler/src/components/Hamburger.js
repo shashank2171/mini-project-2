@@ -23,7 +23,7 @@ import newyork from "../images/newyork.jpg";
 import sanfrancisco from "../images/sanfrancisco.png";
 import beijing from "../images/beijing.jpg";
 import { cookies } from "../App.js";
-import Dashboard from "./Dashboard.js";
+import Dashboard, { Wishlist } from "./Dashboard.js";
 
 const cities = [
   { name: "Horror", image: Horror },
@@ -51,7 +51,27 @@ const Hamburger = ({ state }) => {
   // let line3 = useRef(null);
   // let info = useRef(null);
 
+
   useEffect(() => {
+    
+    async function check(){
+      const user = localStorage.getItem("email");
+      console.log(user.email);
+      if(user){
+        cookies.set("TOKEN", localStorage.getItem('token'), {
+          path: "/",
+        });
+
+        cookies.set("NAME", localStorage.getItem('name'),{
+          path:"/",
+        })
+
+        cookies.set("EMAIL", localStorage.getItem('email'),{
+          path:'/',
+        })
+    
+    }}
+    check();
     // If the menu is open and we click the menu button to close it.
     if (state.clicked === false) {
       // If menu is closed and we want to open it.
@@ -79,7 +99,7 @@ const Hamburger = ({ state }) => {
   
   
 
-  cookies.addChangeListener(()=>{
+  cookies.addChangeListener(async ()=>{
     if(cookies.get('TOKEN')!==""){
       setLogin(false);
       document.getElementById('user').innerHTML='Welcome '+cookies.get("NAME");
@@ -87,7 +107,6 @@ const Hamburger = ({ state }) => {
     }
     else{
       setLogin(true);
-      document.getElementById('started').setAttribute('style','visibility: visible');
     }
   })
 
@@ -146,7 +165,7 @@ const Hamburger = ({ state }) => {
         </div> 
           
       </div> 
-                
+      {!logIn && <Wishlist/>}      
 
     </div>
   </div>

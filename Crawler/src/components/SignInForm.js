@@ -34,8 +34,17 @@ function SignInForm() {
           path:"/",
         })
 
+        cookies.set("EMAIL", result.data.email,{
+          path:'/',
+        })
+        localStorage.setItem("token", result.data.token);
+        localStorage.setItem("email", result.data.email);
+        localStorage.setItem("name", result.data.name);
+
         // alert('Signed in as '+result.data.name);
         console.log(cookies.get("TOKEN"));
+        console.log(result.data);
+        // console.log(localStorage.getItem('user'));
 
       })
       .catch((error) => {
@@ -52,6 +61,7 @@ function SignInForm() {
   };
 
   useEffect(() => {
+    
     //console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
