@@ -6,9 +6,10 @@ import { cookies } from "../App";
 
 
 
+
 let last = "";
 
-function removeTags(str) {
+export function removeTags(str) {
   if ((str===null) || (str===''))
       return "Not available";
   else
@@ -39,8 +40,9 @@ function SearchBar() {
   const [wordEntered, setWordEntered] = useState("");
   const [curr, setCurr] = useState("");
   const [res, setRes] = useState([]);
+
   window.addEventListener("pointerdown",(e)=>{
-    //console.log(e.target.id);
+   
     setCurr(e.target.id);
   })
   
@@ -48,11 +50,11 @@ function SearchBar() {
   useEffect(() => {
     
     const keyDownHandler = event => {
-      //console.log('User pressed: ', event.key);
+    
 
       if (event.key === 'Enter') {
         event.preventDefault();
-        // call submit function here
+       
         
         if(wordEntered!==''){
           document.getElementById('loader').setAttribute('style','visibility: visible;');
@@ -72,6 +74,7 @@ function SearchBar() {
   });
 
   useEffect(() => {
+    
     console.log(curr, '- Has changed');
     if(curr!==null && curr.substring(0, 3)==='li_'){
       last = curr;
@@ -169,7 +172,7 @@ function SearchBar() {
 
             
             let query  = wordEntered;
-            console.log(query);
+           
     
             const configuration = {
                 method: "post",
@@ -207,7 +210,6 @@ function SearchBar() {
                 li.innerHTML="SORRY! No books found. Try again with author's name..."
                 list.appendChild(li);
             })
-    
     }
 
 
@@ -222,7 +224,7 @@ function SearchBar() {
   };
 
   const clearInput = () => {
-    console.log(wordEntered);
+
     setFilteredData([]);
     setWordEntered("");
   };

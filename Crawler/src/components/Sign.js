@@ -9,24 +9,21 @@ export default function Sign() {
     const [isShownSignUp, setIsShownSignUp] = useState(true);
   
     const handleClick = event => {
-      // 👇️ toggle shown state
+   
       setIsShown(current => !current);
       setIsShownSignUp(current => !current);
   
-      // 👇️ or simply set it to true
-      // setIsShown(true);
+      
     };
   
     return (
       <div>
-        {/* 👇️ show elements on click
-        {isShown} */}
-  
-        {/* 👇️ show component on click */}
+      
+        
         {isShown && <SignInForm />}
         {isShownSignUp}
   
-        {/* 👇️ show component on click */}
+    
         {isShownSignUp && <SignUpForm />}
 
         {isShown && <><div className="confirmBox">
@@ -37,7 +34,7 @@ export default function Sign() {
         {isShownSignUp && <>
           <div className="confirmBox">
           <div className="confirm">Already registered?</div>
-          <button onClick={handleClick} className="click">Log in</button>
+          <button onClick={handleClick} id='log' className="click">Log in</button>
         </div></>}
         
       

@@ -1,17 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
+import axios from "axios";
 
-// import { Link } from "react-router-dom";
-// import SignUpForm from "./SignUpForm.js"; 
-// import SignInForm from "./SignInForm.js"; 
 import Sign from "./Sign.js"; 
 
+
 import {
-  // staggerText,
   staggerReveal,
-  // fadeInUp,
-  // handleHover,
-  // handleHoverExit,
   handleCityReturn,
   handleCity,
   staggerRevealClose
@@ -23,7 +18,8 @@ import newyork from "../images/newyork.jpg";
 import sanfrancisco from "../images/sanfrancisco.png";
 import beijing from "../images/beijing.jpg";
 import { cookies } from "../App.js";
-import Dashboard, { Wishlist } from "./Dashboard.js";
+import Dashboard, { History, Wishlist } from "./Dashboard.js";
+import { removeTags } from "./SearchBar.js";
 
 const cities = [
   { name: "Horror", image: Horror },
@@ -35,43 +31,206 @@ const cities = [
 
 
 // function to render the login form of already signed up 
-
+let last="";
 
 const Hamburger = ({ state }) => {
 
   const [logIn, setLogin] = useState(true);
-
+  const [wish, setWish] = useState(true);
+  const [curr, setCurr] = useState("");
+  const [resHist, setResHist] = useState([]);
+  const [resWish, setResWish] = useState([]);
   // Create varibles of our dom nodes
   let menuLayer = useRef(null);
   let reveal1 = useRef(null);
   let reveal2 = useRef(null);
   let cityBackground = useRef(null);
-  // let line1 = useRef(null);
-  // let line2 = useRef(null);
-  // let line3 = useRef(null);
-  // let info = useRef(null);
+  
 
+  window.addEventListener("pointerdown",(e)=>{
+    setCurr(e.target.id);
+  })
+  
+  async function record(meth){
+    let email = cookies.get('EMAIL');
+    let k = resHist[Number(last[4])];
+    const configuration = {
+      method: "post",
+      url: "http://localhost:3001/add",
+      data: {
+        email,
+        meth,
+        k,
+      }
+    };
+
+    axios(configuration)
+    .then((result)=>{
+      console.log(result);
+    })
+    .catch((e)=>{
+      console.log(e);
+    })
+  }
+
+  const searchhist = async() => {
+        
+        let email  = cookies.get("EMAIL");
+   
+        const meth = 'read';
+        const configuration = {
+            method: "post",
+            url: "http://localhost:3001/add",
+            data: {
+              email,
+              meth,
+            }
+        };
+
+        axios(configuration)
+        .then((result)=>{
+            console.log(result.data[0].history); 
+            setResHist(result.data[0].history);
+            let list = document.getElementById('histli');
+            list.setAttribute('style','visibility: visible;');
+            list.innerHTML="";
+            let i =0;
+            
+              result.data[0].history.forEach((item)=>{
+           
+                let li = document.createElement("li");
+                li.setAttribute('id',"lih_"+i);
+                li.setAttribute('className', 'liItem');
+                i++;
+                li.innerText = item.title;
+                list.appendChild(li);
+              })
+
+            setCurr('lih_0');
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+
+    }
+
+    const searchwish = async() => {
+        
+      let email  = cookies.get("EMAIL");
+      console.log(email);
+      const meth = 'read';
+      const configuration = {
+          method: "post",
+          url: "http://localhost:3001/add",
+          data: {
+            email,
+            meth,
+          }
+      };
+
+      axios(configuration)
+      .then((result)=>{
+          console.log(result.data[0].wishlist); 
+          setResWish(result.data[0].wishlist);
+          let list = document.getElementById('wishli');
+          list.setAttribute('style','visibility: visible;');
+          list.innerHTML="";
+          let i =0;
+          
+            result.data[0].wishlist.forEach((item)=>{
+              
+              let li = document.createElement("li");
+              li.setAttribute('id',"liw_"+i);
+              li.setAttribute('className', 'liItem');
+              i++;
+              li.innerText = item.title;
+              list.appendChild(li);
+            })
+
+          setCurr('liw_0');
+      })
+      .catch((e)=>{
+          console.log(e);
+      })
+
+  }
+
+    const getInfoHist = async() => {
+      let k = resHist[Number(curr[4])];
+
+  
+  
+      let img = document.getElementById('histbookImg');
+      img.src="";
+      img.alt='Loading...'
+      img.src=('http://libgen.is/covers/'+k.coverurl);
+  
+      let des = removeTags(k.descr);
+      document.getElementById('histdescId').innerText = "TITLE: "+k.title+"\n\nAUTHOR: "+k.author+"\n\nLANGUAGE: "+k.language+"\n\nPUBLISHER:  "+k.publisher+"\n\nEXTENSION:  "+k.extension+"\n\nIDENTIFIER:  "+k.identifier+"\n\nFILE SIZE: "+(Number(k.filesize)/(1024*1024)).toFixed(2)+" MB\n\nDESCRIPTION: "+des;
+      
+      let lin = document.getElementById('histlin');
+      lin.innerHTML="";
+      let don = document.createElement('button');
+      don.setAttribute('id','doh_n');
+      don.setAttribute('class','download');
+      
+  
+      let wish = document.createElement('button');
+      wish.setAttribute('id','wishh');
+      let war = document.createElement('div');
+      war.setAttribute('id','warh');
+      war.innerHTML="";
+  
+      lin.appendChild(don);
+      lin.appendChild(wish);
+      lin.append(war);
+      document.getElementById('doh_n').innerHTML="Download";
+      document.getElementById('wishh').innerHTML="Wishlist";
+      
+      document.getElementById('histinfor').setAttribute('style','visibility: visible;');
+     
+    
+    }
+
+    const getInfoWish = async() => {
+      let k = resWish[Number(curr[4])];
+
+  
+  
+      let img = document.getElementById('wishbookImg');
+      img.src="";
+      img.alt='Loading...'
+      img.src=('http://libgen.is/covers/'+k.coverurl);
+  
+      let des = removeTags(k.descr);
+      document.getElementById('wishdescId').innerText = "TITLE: "+k.title+"\n\nAUTHOR: "+k.author+"\n\nLANGUAGE: "+k.language+"\n\nPUBLISHER:  "+k.publisher+"\n\nEXTENSION:  "+k.extension+"\n\nIDENTIFIER:  "+k.identifier+"\n\nFILE SIZE: "+(Number(k.filesize)/(1024*1024)).toFixed(2)+" MB\n\nDESCRIPTION: "+des;
+      
+      let lin = document.getElementById('wishlin');
+      lin.innerHTML="";
+      let don = document.createElement('button');
+      don.setAttribute('id','dow_n');
+      don.setAttribute('class','download');
+      
+  
+      // let wish = document.createElement('button');
+      // wish.setAttribute('id','wishw');
+      // let war = document.createElement('div');
+      // war.setAttribute('id','warw');
+      // war.innerHTML="";
+  
+      lin.appendChild(don);
+      // lin.appendChild(wish);
+      // lin.append(war);
+      document.getElementById('dow_n').innerHTML="Download";
+      // document.getElementById('wishw').innerHTML="Wishlist";
+      
+      document.getElementById('wishinfor').setAttribute('style','visibility: visible;');
+     
+    
+    }
 
   useEffect(() => {
     
-    async function check(){
-      const user = localStorage.getItem("email");
-      console.log(user.email);
-      if(user){
-        cookies.set("TOKEN", localStorage.getItem('token'), {
-          path: "/",
-        });
-
-        cookies.set("NAME", localStorage.getItem('name'),{
-          path:"/",
-        })
-
-        cookies.set("EMAIL", localStorage.getItem('email'),{
-          path:'/',
-        })
-    
-    }}
-    check();
     // If the menu is open and we click the menu button to close it.
     if (state.clicked === false) {
       // If menu is closed and we want to open it.
@@ -83,6 +242,11 @@ const Hamburger = ({ state }) => {
       state.clicked === true ||
       (state.clicked === true && state.initial === null)
     ) {
+      if(cookies.get("TOKEN")!==""){
+        searchhist();
+        searchwish();
+      }
+      
       // Set menu to display block
       gsap.to(menuLayer, { duration: 0, css: { display: "block" } });
       //Allow menu to have height of 100%
@@ -96,20 +260,97 @@ const Hamburger = ({ state }) => {
       //staggerText(line1, line2, line3);
     }
   }, [state]);
+
+
+  useEffect(()=>{
+    
+
+    async function check(){
+      const user = localStorage.getItem("email");
+      
+      if(user){
+        cookies.set("TOKEN", localStorage.getItem('token'), {
+          path: "/",
+        });
+
+        cookies.set("NAME", localStorage.getItem('name'),{
+          path:"/",
+        })
+
+        cookies.set("EMAIL", localStorage.getItem('email'),{
+          path:'/',
+        })
+    }}
+    check();
+
+    async function update(){
+      if(cookies.get('TOKEN')!==''){
+        if(wish===true){
+          document.getElementById('Wishlist').setAttribute('style','background-color: antiquewhite; color:black');
+          document.getElementById('History').setAttribute('style','background-color: transparent; color:antiquewhite');
+        }
+        else{
+          document.getElementById('Wishlist').setAttribute('style','background-color: transparent; color:antiquewhite');
+          document.getElementById('History').setAttribute('style','background-color: antiquewhite; color:black');
+        }
+      }
+    }
+    update();
+
+  });
+
+  useEffect(() => {
+    console.log(curr, '- Has changed');
+    if(curr!==null && curr==='Wishlist'){
+      setWish(true);
+      searchwish();
+    }
+    else if(curr==='History'){
+      setWish(false);
+      searchhist();
+    }
+    else if(curr.substring(0, 4)==='lih_'){
+      getInfoHist();
+      last=curr;
+    }
+    else if(curr.substring(0, 4)==='liw_'){
+      getInfoWish();
+      last=curr;
+    }
+    else if(curr==="doh_n"){
+      window.open('https://cloudflare-ipfs.com/ipfs/'+resHist[Number(last[4])].ipfs_cid.toLowerCase(), '_blank');
+    
+    }
+    else if(curr==="dow_n"){
+      window.open('https://cloudflare-ipfs.com/ipfs/'+resWish[Number(last[4])].ipfs_cid.toLowerCase(), '_blank');
+    }
+    else if(curr==="wishh"){
+      if(cookies.get("TOKEN")!==""){
+        document.getElementById('warh').innerHTML="Item added to wishlist.";
+        record('wishlist');
+      }
+    }
+    
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[curr])
   
   
 
   cookies.addChangeListener(async ()=>{
     if(cookies.get('TOKEN')!==""){
       setLogin(false);
-      document.getElementById('user').innerHTML='Welcome '+cookies.get("NAME");
-      document.getElementById('started').setAttribute('style','visibility: hidden');
+      try{
+        document.getElementById('user').innerHTML='Welcome '+cookies.get("NAME");
+        document.getElementById('started').setAttribute('style','visibility: hidden');
+      }
+      catch{}
     }
     else{
       setLogin(true);
+      
     }
   })
-
 
   return (
     
@@ -165,8 +406,8 @@ const Hamburger = ({ state }) => {
         </div> 
           
       </div> 
-      {!logIn && <Wishlist/>}      
-
+      {!logIn && wish && <Wishlist/>}      
+      {!logIn && !wish && <History/>}
     </div>
   </div>
 );};

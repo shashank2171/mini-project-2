@@ -26,18 +26,7 @@ export const staggerRevealClose = (node1, node2) => {
   });
 };
 
-// STAGGER THE LINKS TO APPEAR (sign up)
-// export const staggerText = (node1 ) => {
-//   gsap.from([node1], {
-//     duration: 0.8,
-//     y: 100,
-//     delay: 0.1,
-//     ease: "power3.inOut",
-//     stagger: {
-//       amount: 0.3
-//     }
-//   });
-// };
+
 
 // Fade up for the additonal info on our menu (our promises)
 export const fadeInUp = node => {
@@ -50,25 +39,7 @@ export const fadeInUp = node => {
   });
 };
 
-// Hover on the link
-// export const handleHover = e => {
-//   gsap.to(e.target, {
-//     duration: 0.3,
-//     y: 0.5,
-//     skewX: 0,
-//     ease: "power1.inOut"
-//   });
-// };
 
-// Hover off the link
-// export const handleHoverExit = e => {
-//   gsap.to(e.target, {
-//     duration: 0.3,
-//     y: 0.5,
-//     skewX: 0,
-//     ease: "power1.inOut"
-//   });
-// };
 
 // adds city image once you hover on
 export const handleCity = (city, target) => {

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import axios from "axios";
 
 function SignUpForm() {
   const initialValues = { name: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  // const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,9 +20,15 @@ function SignUpForm() {
     if(Object.keys(f).length === 0){
       axios(configuration)
       .then((result) => {
-        alert("Signed up succesfully")
+        
         console.log(result);
-        setIsSubmit(true);
+        // setIsSubmit(true);
+
+        const click = function simulateClick() {
+          const btn = document.getElementById('log');
+          btn.click();
+        }
+        click();
       })
       .catch((error) => {
         let err = error.response.data.error.keyPattern;
@@ -43,12 +49,12 @@ function SignUpForm() {
     // setIsSubmit(true);
   };
 
-  useEffect(() => {
-    //console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  });
+  // useEffect(() => {
+  //   //console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     console.log(formValues);
+  //   }
+  // });
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { cookies } from "../App";
 
+
+
 function SignInForm() {
   const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
@@ -14,6 +16,7 @@ function SignInForm() {
     setFormValues({ ...formValues, [name]: value });
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const f = validate(formValues);
@@ -25,7 +28,6 @@ function SignInForm() {
         // alert("Signed in succesfully")
         console.log(result);
         setIsSubmit(true);
-        
         cookies.set("TOKEN", result.data.token, {
           path: "/",
         });
@@ -41,11 +43,15 @@ function SignInForm() {
         localStorage.setItem("email", result.data.email);
         localStorage.setItem("name", result.data.name);
 
-        // alert('Signed in as '+result.data.name);
+    
         console.log(cookies.get("TOKEN"));
         console.log(result.data);
-        // console.log(localStorage.getItem('user'));
-
+      
+        const click = function simulateClick() {
+          const btn = document.getElementById('menu');
+          btn.click();
+        }
+        click();
       })
       .catch((error) => {
         
@@ -54,15 +60,11 @@ function SignInForm() {
         alert("wrong credentials")
       });
     }
-    
-    // console.log(formValues);
-    
-    // setIsSubmit(true);
+
   };
 
   useEffect(() => {
     
-    //console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
       
@@ -71,9 +73,7 @@ function SignInForm() {
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    // if (!values.username) {
-    //   errors.username = "Username is required!";
-    // }
+
     if (!values.email) {
       errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
@@ -144,7 +144,7 @@ function SignInForm() {
             />
           </div>
           <p className="errors">{formErrors.password}</p>
-          <button className="ui button">Submit</button>
+          <button  id="sub" className="ui button">Submit</button>
         </div>
       </form>
     </div>

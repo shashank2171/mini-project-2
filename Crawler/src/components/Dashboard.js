@@ -48,7 +48,6 @@ export default function Dashboard(){
     function logout(){
         cookies.set('TOKEN',"",{path:'/'});
         cookies.remove('NAME');
-        console.log("IM triggered")
         localStorage.clear();
     }
   return (
