@@ -6,14 +6,14 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-require('./DBConnect');
+const mongoose = require('./DBConnect');
 const auth = require('./auth');
 const User = require('./userModel');
 const { request } = require("http");
-const { response } = require("express");
-app.use(express.json())
+const model = require("./userModel");
+const cors = require('cors');
 
-// const bookcovers = require('bookcovers');
+
 
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
@@ -25,22 +25,26 @@ app.listen(PORT, () => {
 
 dbConnect();
 
+app.use(cors());
+
+
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 // Curb Cores Error by adding a header here
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-    );
-    next();
-});
-  
-  
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader(
+//       "Access-Control-Allow-Headers",
+//       "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+//     );
+//     res.setHeader(
+//       "Access-Control-Allow-Methods",
+//       "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+//     );
+//     next();
+// });
+
 
 
 // register endpoint.
@@ -157,7 +161,16 @@ app.post('/search',async (req, res)=>{
 })
 
 
+app.post('/add',async (req, res)=>{
+    const m = req.body.k;
+    const em = req.body.email;
+    if(req.body.meth==="history")
+        await model.updateOne({email:em}, {$push:{history:m}});
+    else if(req.body.meth==='wishlist')
+        await model.updateOne({email:em}, {$push:{wishlist:m}});
+    
 
+})
 
   
 

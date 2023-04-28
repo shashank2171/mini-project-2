@@ -16,6 +16,80 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please provide a password!"],
         unique: [false],
     },
+    history:[{
+        id:{
+            type: String,
+            required: [true],
+            unique: [true, "Duplicate!"]
+        },
+        title:{
+            type:String
+        },
+        author:{
+            type:String
+        },
+        publisher:{
+            type:String
+        },
+        language:{
+            type:String
+        },
+        extension:{
+            type:String
+        },
+        identifier:{
+            type:String
+        },
+        imgurl:{
+            type:String
+        },
+        filesize:{
+            type:String
+        },
+        descr:{
+            type:String
+        },
+        ipfs_cid:{
+            type:String
+        }
+    }],
+    wishlist:[{
+        id:{
+            type: String,
+            required: [true],
+            unique: [true, "Duplicate!"]
+        },
+        title:{
+            type:String
+        },
+        author:{
+            type:String
+        },
+        publisher:{
+            type:String
+        },
+        language:{
+            type:String
+        },
+        extension:{
+            type:String
+        },
+        identifier:{
+            type:String
+        },
+        imgurl:{
+            type:String
+        },
+        filesize:{
+            type:String
+        },
+        descr:{
+            type:String
+        },
+        ipfs_cid:{
+            type:String
+        }
+    }],
 })
 
 const model = mongoose.model("Users", UserSchema);
